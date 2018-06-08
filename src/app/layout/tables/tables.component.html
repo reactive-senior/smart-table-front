@@ -1,0 +1,49 @@
+<div [@routerTransition]>
+    <app-page-header [heading]="'Editor Area'" [icon]="'fa-table'"></app-page-header>
+    <div class="upload-btn-wrapper mr-3">
+        <button class="btn-upload mb-3">Bulk XLS</button>
+        <input type="file" name="myfile" (change)="readXLS($event)"/>
+    </div>
+    <div class="upload-btn-wrapper">
+        <button class="btn-upload mb-3" (click)="onAdd()">Add Character</button>
+    </div>
+    <div class="row">
+        <div class="col col-xl-12 col-lg-12">
+            <div class="card mb-3">
+                <div class="card-header">
+                    Hoverable rows
+                </div>
+
+                <table class="card-body table table-hover">
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>EMail</th>
+                        <th>Sex</th>
+                        <th>Address</th>
+                        <th>Action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let character of character_process">
+                            <th scope="row">{{character.id}}</th>
+                            <td *ngIf="character.status != 0"><input type="text" name="name" [(ngModel)]="editing_character.name"/></td>
+                            <td *ngIf="character.status == 0">{{character.name}}</td>
+                            <td *ngIf="character.status != 0"><input type="text" name="email" [(ngModel)]="editing_character.email"/></td>
+                            <td *ngIf="character.status == 0">{{character.email}}</td>
+                            <td *ngIf="character.status != 0"><input type="text" name="sex" [(ngModel)]="editing_character.sex"/></td>
+                            <td *ngIf="character.status == 0">{{character.sex}}</td>
+                            <td *ngIf="character.status != 0"><input type="text" name="address" [(ngModel)]="editing_character.address"/></td>
+                            <td *ngIf="character.status == 0">{{character.address}}</td>
+                            <td *ngIf="character.status == 0"><i class="fa fa-pencil mr-3" (click)="onEdit(character.id)"></i> <i class="fa fa-trash" (click)="onRemove(character.id)"></i></td>
+                            <td *ngIf="character.status == 1"><i class="fa fa-check mr-3" (click)="onFinishEditing(character.id)"></i> <i class="fa fa-reply" (click)="onRevert()"></i></td>
+                            <td *ngIf="character.status == 2"><i class="fa fa-check mr-3" (click)="onFinishEditing(character.id)"></i></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    </div>
+</div>
